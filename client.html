@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>client</title>
+     {% include 'header.html' %}
+</head>
+<body>
+<section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Client Login</h2>
+
+        </div>
+    <div class="col-lg-8">
+            <form action="/customer_login/" method="post" role="form" >
+                {% csrf_token %}
+              <div class="row">
+
+              <div class="form-group mt-3">
+                  <label>Enter Email ID :</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter Email Id" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                       <label>Enter Password :</label>
+                <input type="password" class="form-control" name="password" id="" placeholder="password" required>
+              </div>
+
+              <div class="text-center">
+                  <br>
+                  <br>
+                <button type="submit" class="btn btn-success">Login</button>
+              </div>
+                <center>  Don't Have an Account ?
+                  <a href="{% url 'client_reg' %}" style="btn-btn">Register</a>
+                </center>
+              </div>
+            </form>
+        
+          </div>
+          <!-- End Contact Form -->
+
+      </div></section>
+
+</body>
+</html>

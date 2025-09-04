@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+  <!-- DateTimePicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <title>cart</title>
+  {% include 'client_header.html' %}
+
+</head>
+<body>
+<section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Add to Cart</h2>
+
+        </div>
+    <div class="col-lg-8">
+            <form action="" method="POST" role="form" >
+{% csrf_token %}
+              <div class="row">
+
+               <div class="form-group mt-3">
+                <input type="hidden" class="form-control" name="client"  value="{{client}}"    placeholder="client" required>
+              </div>
+
+                   <div class="form-group mt-3">
+
+                <input type="hidden" class="form-control" name="service"  value="{{service}}" placeholder="service" required>
+              </div>
+                  <div class="form-group mt-3">
+                       <label>Service:</label>
+                <input type="text" class="form-control"   value="{{name}}" placeholder="service" readonly>
+              </div>
+
+
+              <div class="form-group mt-3">
+                  <label>Date:</label>
+                <input id="datetimepicker7" class="form-control" type="daterime-local"  name="date" required>
+              </div>
+              </div>
+
+
+              <div class="text-center">
+                  <br>
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+            </form>
+            {{msg}}
+          </div><!-- End Contact Form -->
+
+      </div></section>
+
+</body>
+</html>
+{% include 'footer.html' %}
+
+
+<script>
+          var checkPastTime = function(inputDateTime) {
+    if (typeof(inputDateTime) != "undefined" && inputDateTime !== null) {
+        var current = new Date();
+
+        //check past year and month
+        if (inputDateTime.getFullYear() < current.getFullYear()) {
+            $('#datetimepicker7').datetimepicker('reset');
+            alert("Sorry! Past date time not allow.");
+        } else if ((inputDateTime.getFullYear() == current.getFullYear()) && (inputDateTime.getMonth() < current.getMonth())) {
+            $('#datetimepicker7').datetimepicker('reset');
+            alert("Sorry! Past date time not allow.");
+        }
+
+        // 'this' is jquery object datetimepicker
+        // check input date equal to todate date
+        if (inputDateTime.getDate() == current.getDate()) {
+            if (inputDateTime.getHours() < current.getHours()) {
+                $('#datetimepicker7').datetimepicker('reset');
+            }
+            this.setOptions({
+                minTime: current.getHours() + '1:00' //here pass current time hour
+            });
+        } else {
+            this.setOptions({
+                minTime: false
+            });
+        }
+    }
+};
+
+var currentYear = new Date();
+$('#datetimepicker7').datetimepicker({
+    format:'Y/m/d g:i A',
+    minDate : 0,
+    yearStart : currentYear.getFullYear(), // Start value for current Year selector
+    onChangeDateTime:checkPastTime,
+    onShow:checkPastTime
+});
+                    </script>

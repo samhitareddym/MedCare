@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>clientUpdate</title>
+    {% include 'client_header.html' %}
+</head>
+<body>
+ <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+
+
+          <div class="col-lg-8">
+            <form action="/client_update/" method="post" role="form" >
+                 {% csrf_token %}
+              <div class="row">
+
+
+                  <div class="form-group mt-3">
+
+                <input type="hidden" class="form-control" name="id" id="id" value="{{client.id}}" placeholder="Enter Your id" required>
+              </div>
+
+
+              <div class="form-group mt-3">
+
+                  <label>Enter Your FirstName:</label>
+                <input type="text" class="form-control" name="firstname" id="firstname" value="{{client.firstname}}" placeholder="Enter Your FirstName" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your LastName:</label>
+                <input type="text" class="form-control" name="lastname" id="lastname" value="{{client.lastname}}" placeholder="Enter Your LastName" required>
+              </div>
+
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your Email:</label>
+                <input type="email" class="form-control" value="{{client.email}}" name="email" id="email" placeholder="Enter Your Email" readonly>
+              </div>
+
+                   <div class="form-group mt-3">
+                        <label>Enter Your City:</label>
+                <input type="text" class="form-control" value="{{client.city}}" name="city" id="city" placeholder="Enter Your City" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your Address:</label>
+                <textarea class="form-control" name="address" rows="7" placeholder="Address" required>{{client.address}}</textarea>
+              </div>
+
+                   <div class="form-group mt-3">
+                <input type="hidden" value="{{client.password}}" class="form-control" name="password" id="password" placeholder="Enter Your password" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                <input type="hidden" value="{{client.confirm_password}}" class="form-control" name="confirm_password" id="confirm_password" placeholder="Enter Your ConformPassword" required>
+              </div>
+
+
+              <br><br>
+              <div class="text-center">
+                  <br>
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+
+    </section>
+</body>
+</html>
+
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>{% include 'client_header.html' %}
+    <meta charset="UTF-8">
+    <title>Viewcart</title>
+</head>
+<body>
+
+<br>
+
+<section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Cart</h2>
+        </div>
+
+            <center>
+<table class="table" border="1"  cellpadding="10" cellspacing="5" >
+
+<thead class="thead-light">
+    <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Service</th>
+        <th scope="col">Date Time</th>
+        <th scope="col">Status</th>
+    </tr>
+</thead>
+    <tbody>
+    {% for cart in carts %}
+    <tr>
+        <td>{{cart.client.email}}</td>
+        <td>{{cart.service.service_name}}</td>
+        <td>{{cart.date}}</td>
+        <!-- <td>{{cart.time}}</td> -->
+
+
+         <td>
+        {% if cart.status == 1 %}
+                                 <button disabled="disabled" data-toggle="modal" data-target="#reply_modal">Approved</button>
+                                {% elif cart.status == 2 %}
+                                 <button disabled="disabled" data-toggle="modal" data-target="#reply_modal">Rejected</button>
+                                {% else %}
+                                 <button disabled="disabled" data-toggle="modal" data-target="#reply_modal">Pending</button>
+                                {% endif %}
+		</td>
+
+    </tr>
+
+
+    {% empty %}
+   No Bookings
+
+    {% endfor %}
+    </tbody>
+
+</table></center>
+
+      </div></section>
+
+</body>
+</html>
+

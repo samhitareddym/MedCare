@@ -1,0 +1,304 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--{% load static %}-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+<!--    <script>-->
+<!--        // Ignore this in your implementation-->
+<!--        window.isMbscDemo = true;-->
+<!--    </script>-->
+
+<!--    <title>-->
+<!--        Appointment booking-->
+<!--    </title>-->
+
+<!--    &lt;!&ndash; Mobiscroll JS and CSS Includes &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="{% static 'css/mobiscroll/mobiscroll.javascript.min.css' %}" type="text/css">-->
+<!--    <script src="{% static 'js/mobiscroll/mobiscroll.javascript.min.js' %}"></script>-->
+
+<!--    <style>-->
+<!--            body {-->
+<!--        margin: 0;-->
+<!--        padding: 0;-->
+<!--    }-->
+
+<!--    body,-->
+<!--    html {-->
+<!--        height: 100%;-->
+<!--    }-->
+
+<!--            .md-calendar-booking .mbsc-calendar-text {-->
+<!--        text-align: center;-->
+<!--    }-->
+<!--    -->
+<!--    .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {-->
+<!--        flex: 1 1 0;-->
+<!--        min-width: 300px;-->
+<!--    }-->
+<!--    -->
+<!--    .md-calendar-booking .mbsc-timegrid-item {-->
+<!--        margin-top: 1.5em;-->
+<!--        margin-bottom: 1.5em;-->
+<!--    }-->
+<!--    -->
+<!--    .md-calendar-booking .mbsc-timegrid-container {-->
+<!--        top: 30px;-->
+<!--    }-->
+<!--    </style>-->
+
+<!--</head>-->
+
+<!--<body>-->
+
+<!--    <div  class="demo-appointment-booking">-->
+<!--        <div style="height:100%">-->
+<!--                <div class="md-calendar-booking">-->
+<!--        <div class="mbsc-form-group">-->
+<!--            <div class="mbsc-form-group-title">Single date & appointment booking</div>-->
+<!--            <div id="demo-booking-single"></div>-->
+<!--        </div>-->
+<!--        <div class="mbsc-form-group">-->
+<!--            <div class="mbsc-form-group-title">Select date & time</div>-->
+<!--            <div id="demo-booking-datetime" class="booking-datetime"></div>-->
+<!--        </div>-->
+<!--        <div class="mbsc-form-group">-->
+<!--            <div class="mbsc-form-group-title">Booking multiple appointments</div>-->
+<!--            <div id="demo-booking-multiple"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        -->
+<!--            mobiscroll.setOptions({-->
+<!--        locale: mobiscroll.localeEn,             // Specify language like: locale: mobiscroll.localePl or omit setting to use default-->
+<!--        theme: 'ios',                            // Specify theme like: theme: 'ios' or omit setting to use default-->
+<!--        themeVariant: 'light'                    // More info about themeVariant: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-themeVariant-->
+<!--    });-->
+<!--    -->
+<!--    var min = '2022-11-25T00:00';-->
+<!--    var max = '2023-05-25T00:00';-->
+<!--    -->
+<!--    mobiscroll.datepicker('#demo-booking-single', {-->
+<!--        display: 'inline',                       // Specify display mode like: display: 'bottom' or omit setting to use default-->
+<!--        controls: ['calendar'],                  // More info about controls: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-controls-->
+<!--        min: min,                                // More info about min: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-min-->
+<!--        max: max,                                // More info about max: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-max-->
+<!--        pages: 'auto',-->
+<!--        onPageLoading: function (event, inst) {  // More info about onPageLoading: https://docs.mobiscroll.com/5-20-0/javascript/calendar#event-onPageLoading-->
+<!--            getPrices(event.firstDay, function callback(bookings) {-->
+<!--                inst.setOptions({-->
+<!--                    labels: bookings.labels,     // More info about labels: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-labels-->
+<!--                    invalid: bookings.invalid    // More info about invalid: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-invalid-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--    -->
+<!--    mobiscroll.datepicker('#demo-booking-datetime', {-->
+<!--        display: 'inline',                       // Specify display mode like: display: 'bottom' or omit setting to use default-->
+<!--        controls: ['calendar', 'timegrid'],      // More info about controls: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-controls-->
+<!--        min: min,                                // More info about min: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-min-->
+<!--        max: max,                                // More info about max: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-max-->
+<!--        minTime: '08:00',-->
+<!--        maxTime: '19:59',-->
+<!--        stepMinute: 60,-->
+<!--        width: null,                             // More info about width: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-width-->
+<!--        onPageLoading: function (event, inst) {  // More info about onPageLoading: https://docs.mobiscroll.com/5-20-0/javascript/calendar#event-onPageLoading-->
+<!--            getDatetimes(event.firstDay, function callback(bookings) {-->
+<!--                inst.setOptions({-->
+<!--                    labels: bookings.labels,     // More info about labels: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-labels-->
+<!--                    invalid: bookings.invalid    // More info about invalid: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-invalid-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--    -->
+<!--    mobiscroll.datepicker('#demo-booking-multiple', {-->
+<!--        display: 'inline',                       // Specify display mode like: display: 'bottom' or omit setting to use default-->
+<!--        controls: ['calendar'],                  // More info about controls: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-controls-->
+<!--        min: min,                                // More info about min: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-min-->
+<!--        max: max,                                // More info about max: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-max-->
+<!--        pages: 'auto',-->
+<!--        selectMultiple: true,-->
+<!--        onInit: function (event, inst) {         // More info about onInit: https://docs.mobiscroll.com/5-20-0/javascript/calendar#event-onInit-->
+<!--            inst.setVal([-->
+<!--                '2022-11-11T00:00',-->
+<!--                '2022-11-16T00:00',-->
+<!--                '2022-11-17T00:00'-->
+<!--            ], true);-->
+<!--        },-->
+<!--        onPageLoading: function (event, inst) {  // More info about onPageLoading: https://docs.mobiscroll.com/5-20-0/javascript/calendar#event-onPageLoading-->
+<!--            getBookings(event.firstDay, function callback(bookings) {-->
+<!--                inst.setOptions({-->
+<!--                    labels: bookings.labels,     // More info about labels: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-labels-->
+<!--                    invalid: bookings.invalid    // More info about invalid: https://docs.mobiscroll.com/5-20-0/javascript/calendar#opt-invalid-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--    -->
+<!--    function getPrices(d, callback) {-->
+<!--        var invalid = [],-->
+<!--            labels = [];-->
+<!--    -->
+<!--        mobiscroll.util.http.getJson('https://trial.mobiscroll.com/getprices/?year=' + d.getFullYear() + '&month=' + d.getMonth(), function (bookings) {-->
+<!--            for (var i = 0; i < bookings.length; ++i) {-->
+<!--                var booking = bookings[i],-->
+<!--                    d = new Date(booking.d);-->
+<!--    -->
+<!--                if (booking.price > 0) {-->
+<!--                    labels.push({-->
+<!--                        start: d,-->
+<!--                        title: '$' + booking.price,-->
+<!--                        textColor: '#e1528f'-->
+<!--                    });-->
+<!--                } else {-->
+<!--                    invalid.push(d);-->
+<!--                }-->
+<!--            }-->
+<!--            callback({ labels: labels, invalid: invalid });-->
+<!--        }, 'jsonp');-->
+<!--    }-->
+
+<!--    function getDatetimes(day, callback) {-->
+<!--        var invalid = [];-->
+<!--        var labels = [];-->
+<!--    -->
+<!--        mobiscroll.util.http.getJson('https://trial.mobiscroll.com/getbookingtime/?year=' + day.getFullYear() + '&month=' + day.getMonth(), function (bookings) {-->
+<!--            for (var i = 0; i < bookings.length; ++i) {-->
+<!--                var booking = bookings[i];-->
+<!--                var bDate = new Date(booking.d);-->
+<!--    -->
+<!--                if (booking.nr > 0) {-->
+<!--                    labels.push({-->
+<!--                        start: bDate,-->
+<!--                        title: booking.nr + ' SPOTS',-->
+<!--                        textColor: '#e1528f'-->
+<!--                    });-->
+<!--                    $.merge(invalid, booking.invalid);-->
+<!--                } else {-->
+<!--                    invalid.push(bDate);-->
+<!--                }-->
+<!--            }-->
+<!--            callback({ labels: labels, invalid: invalid });-->
+<!--        }, 'jsonp');-->
+<!--    }-->
+<!--    -->
+<!--    function getBookings(d, callback) {-->
+<!--        var invalid = [],-->
+<!--            labels = [];-->
+<!--    -->
+<!--        mobiscroll.util.http.getJson('https://trial.mobiscroll.com/getbookings/?year=' + d.getFullYear() + '&month=' + d.getMonth(), function (bookings) {-->
+<!--            for (var i = 0; i < bookings.length; ++i) {-->
+<!--                var booking = bookings[i],-->
+<!--                    d = new Date(booking.d);-->
+<!--    -->
+<!--                if (booking.nr > 0) {-->
+<!--                    labels.push({-->
+<!--                        start: d,-->
+<!--                        title: booking.nr + ' SPOTS',-->
+<!--                        textColor: '#e1528f'-->
+<!--                    });-->
+<!--                } else {-->
+<!--                    invalid.push(d);-->
+<!--                }-->
+<!--            }-->
+<!--            callback({ labels: labels, invalid: invalid });-->
+<!--        }, 'jsonp');-->
+<!--    }-->
+<!--    </script>-->
+
+<!--</body>-->
+
+<!--</html>-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Static Example</title>
+
+  <!-- jQuery -->
+  <script 
+  src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous">
+</script>
+
+  <!-- XDSoft DateTimePicker -->
+  <link rel="stylesheet" 
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" 
+  integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y="
+  crossorigin="anonymous"
+   />
+  <script 
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" 
+  integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk="
+   crossorigin="anonymous"></script>
+   
+</head>
+<body>
+
+  <input id="datetimepicker" name="date" type="text">
+
+  <script>
+    $(function () {
+      $("#datetimepicker").datetimepicker({ minDate: 0,format: 'Y/m/d  g:i A',
+        formatTime: 'g:i A',defaultTime: '9:00',});
+    });
+  </script>
+
+<!--  <script>-->
+<!--  $(function () {-->
+<!--     $("#datetimepicker1").data("datetimepicker").getDate();-->
+<!--     });-->
+<!--  </script>-->
+
+<!--<script>-->
+<!--    var checkPastTime = function(inputDateTime) {-->
+<!--    if (typeof(inputDateTime) != "undefined" && inputDateTime !== null) {-->
+<!--        var current = new Date();-->
+
+<!--        //check past year and month-->
+<!--        if (inputDateTime.getFullYear() < current.getFullYear()) {-->
+<!--            $('#datetimepicker7').datetimepicker('reset');-->
+<!--            alert("Sorry! Past date time not allow.");-->
+<!--        } else if ((inputDateTime.getFullYear() == current.getFullYear()) && (inputDateTime.getMonth() < current.getMonth())) {-->
+<!--            $('#datetimepicker7').datetimepicker('reset');-->
+<!--            alert("Sorry! Past date time not allow.");-->
+<!--        }-->
+
+<!--        // 'this' is jquery object datetimepicker-->
+<!--        // check input date equal to todate date-->
+<!--        if (inputDateTime.getDate() == current.getDate()) {-->
+<!--            if (inputDateTime.getHours() < current.getHours()) {-->
+<!--                $('#datetimepicker7').datetimepicker('reset');-->
+<!--            }-->
+<!--            this.setOptions({-->
+<!--                minTime: current.getHours() + ':00' //here pass current time hour-->
+<!--            });-->
+<!--        } else {-->
+<!--            this.setOptions({-->
+<!--                minTime: false-->
+<!--            });-->
+<!--        }-->
+<!--    }-->
+<!--};-->
+
+<!--var currentYear = new Date();-->
+<!--$('#datetimepicker7').datetimepicker({-->
+<!--    format:'Y-m-d H:i a',-->
+<!--    minDate : 0,-->
+<!--    yearStart : currentYear.getFullYear(), // Start value for current Year selector-->
+<!--    onChangeDateTime:checkPastTime,-->
+<!--    onShow:checkPastTime-->
+<!--});-->
+<!--</script>-->
+
+</body>
+</html>

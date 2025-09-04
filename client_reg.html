@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>clientRegister</title>
+    {% include 'header.html' %}
+</head>
+<body>
+ <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Client Register</h2>
+          <p>MedCare is committed towards supporting everyone remain healthy.</p>
+        </div>
+
+          <div class="col-lg-8">
+            <form action="/client_register/" method="post" role="form" >
+                 {% csrf_token %}
+              <div class="row">
+
+              <div class="form-group mt-3">
+
+                  <label>Enter Your FirstName:</label>
+                <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter Your FirstName" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your LastName:</label>
+                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter Your LastName" required>
+              </div>
+
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your Email:</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter Your Email" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                        <label>Enter Your City:</label>
+                <input type="text" class="form-control" name="city" id="city" placeholder="Enter Your City" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                       <label>Enter Your Address:</label>
+                <textarea class="form-control" name="address" rows="7" placeholder="Address" required></textarea>
+              </div>
+
+                   <div class="form-group mt-3">
+                        <label>Enter Your Password:</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter Your password" required>
+              </div>
+
+                   <div class="form-group mt-3">
+                        <label> ConfirmPassword:</label>
+                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ConfirmPassword" required>
+              </div>
+
+
+              <br><br>
+              <div class="text-center">
+                  <br>
+                <button type="submit" class="btn btn-success">Register</button>
+              </div>
+                <center>If You Have an Account.<a href="{% url 'client' %}" type="button">Login</a></center>
+              </div>
+            </form>
+            {{msg}}
+          </div><!-- End Contact Form -->
+
+        </div>
+
+
+    </section>
+</body>
+
+<script>
+    var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>

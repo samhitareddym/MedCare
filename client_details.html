@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>{% load static %}
+    <meta charset="UTF-8">
+    <title>client_details</title>
+    {% include 'client_header.html' %}
+</head>
+<body>
+ <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Details</h2>
+        </div>
+        <div class="row gx-lg-0 gy-7">
+
+          <div class="col-lg-6" style="height:300px; position:center;">
+
+            <div class="info-container d-flex flex-column align-items-center justify-content-center">
+              <div class="info-item d-flex" style="height:200px">
+                <div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      FirstName:
+    </div>
+    <div class="col-sm">
+      {{client.firstname}}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      LastName:
+    </div>
+    <div class="col-sm">
+      {{client.lastname}}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      Email:
+    </div>
+    <div class="col-sm">
+      {{client.email}}
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      City:
+    </div>
+    <div class="col-sm">
+      {{client.city}}
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      Address:
+    </div>
+    <div class="col-sm">
+      {{client.address}}
+    </div>
+  </div>
+</div>
+
+
+
+                </div>
+              </div>
+                <div>
+                   <a href="/client_edit/{{client.email}}" class="btn btn-danger">Edit</a><span style="margin-left:0.5em;">
+                  <a href="/client_delete/{{client.email}}" class="btn btn-danger" onclick="return confirm ('are you sure you want delete your Account');">Delete</a>
+                </span>
+                </div>
+            </div>
+
+
+
+              <!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+      </div>
+    </section>
+
+</body>
+

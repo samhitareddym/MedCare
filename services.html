@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>services</title>
+    {% include 'header.html' %}
+</head>
+<body>
+
+<section id="services" class="services sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Our Services</h2>
+          <p>MedCare is committed towards supporting everyone remain healthy.</p>
+        </div>
+
+       <div class="card-group" >
+        {% for service in services %}
+<div class="col-lg-4 col-md-6">
+          <div class="card" style="width: 20rem;">
+
+  <img class="card-img-top" src="{{service.image.url}}"  width="200px" height="200px">
+  <div class="card-body">
+    <h5 class="card-title" style="height:50px">{{service.service_name}}</h5>
+    <p class="card-text">Price: {{service.service_price}} /-</p>
+    <p class="card-text">Timings: {{service.hours}} hr</p>
+  </div>
+              </div><br></div>
+{% empty %}
+
+    <div class="col-lg-4 col-md-6">
+          <div class="card" style="width: 20rem;">
+
+  <div class="card-body">
+    <h5 class="card-title" style="color:red">No Services</h5>
+    <h5 class="card-text">Available Right Now</h5>
+
+  </div>
+              </div><br></div>
+
+{% endfor %}
+</div>
+
+
+      </div></section>
+
+          <!-- End Service Item -->
+
+
+
+</body>
